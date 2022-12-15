@@ -9,41 +9,11 @@
       <title>ABC Jobs | <%= request.getParameter("HTMLtitle") !=null ? request.getParameter("HTMLtitle")
           : "Welcome" %>
       </title>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-      <link href="css/zephyr.css" rel="stylesheet">
+      <link href="<%= request.getParameter("isNested") == null ? "css/zephyr.css" : request.getParameter("isNested") %>" rel="stylesheet">
+      <link href="css/over.css" rel="stylesheet">
     </head>
 
-    <body style="min-height: 100vh;">
-      <nav class="navbar navbar-expand-lg bg-light mb-4 shadow-sm">
-        <div class="container">
-          <a class="navbar-brand" href="home">ABC Jobs</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link <%= request.getServletPath().equals("/WEB-INF/views/index.jsp") ? "text-primary"
-                  : "text-black" %>" href="home">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link <%= request.getServletPath().equals("/WEB-INF/views/search.jsp") ? "text-primary"
-                  : "text-black" %>" href="search">Search</a>
-              </li>
-              <% if((Boolean) session.getAttribute("isLogin") != null) { %>
-                <li class="nav-item">
-                  <a class="nav-link <%= request.getServletPath().equals("/WEB-INF/views/dashboard.jsp")
-                    ? "text-primary" : "text-black" %>" href="dashboard">Dashboard</a>
-                </li>
-                <% } %>
-            </ul>
-            <% if( (Boolean) session.getAttribute("isLogin") != null) { %>
-              <a href="logout" class="btn btn-danger">Logout</a>
-              <% } else { %>
-                <a href="login" class="btn btn-outline-primary">Login</a>
-                <% } %>
-          </div>
-        </div>
-      </nav>
+    <body class="d-flex flex-column" style="min-height: 100vh; font-family: 'Poppins', sans-serif;">
+    <jsp:include page="navbar.jsp"></jsp:include>

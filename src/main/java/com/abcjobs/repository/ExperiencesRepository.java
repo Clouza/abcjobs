@@ -11,6 +11,7 @@ import com.abcjobs.model.Experiences;
 
 @Repository
 public interface ExperiencesRepository extends JpaRepository<Experiences, Long> {
-	@Query(value = "SELECT * FROM experiences WHERE user_details_id = :udID", nativeQuery = true)
-	public List<Experiences> getExperiencesByUserDetailsId(@Param("udID") String udID);
+	@Query(value = "SELECT * FROM experiences WHERE user_details_id = :id", nativeQuery = true)
+	public List<Experiences> getExperiencesByUserDetailsId(@Param("id") String udID);
+	
 }

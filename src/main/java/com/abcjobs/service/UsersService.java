@@ -45,4 +45,25 @@ public class UsersService {
 		// save
 		return repo.save(user);
 	}
+	
+	public boolean deleteUserById(Long id) {
+		try {
+			repo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return false;
+	}
+	
+	public boolean updatePassword(String password, Long id) {
+		try {
+			Users user = repo.findById(id).get();
+			user.setPassword(password);
+			repo.save(user);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

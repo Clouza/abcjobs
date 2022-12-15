@@ -1,5 +1,7 @@
 package com.abcjobs.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.abcjobs.model.BulkEmail;
 import com.abcjobs.model.Educations;
 import com.abcjobs.model.Experiences;
 import com.abcjobs.model.UserDetails;
+import com.abcjobs.service.BulkEmailService;
 import com.abcjobs.service.EducationsService;
 import com.abcjobs.service.ExperiencesService;
 import com.abcjobs.service.UserDetailsService;
@@ -30,33 +34,49 @@ public class DashboardController {
 	@Autowired
 	ExperiencesService exs;
 	
+	@Autowired
+	BulkEmailService bes;
+	
 	@RequestMapping(value="/dashboard") // profile overview
 	public ModelAndView dashboard(HttpSession session, Model model) throws Exception {
 		try {
 			this.setModel(model, session);
-			return new ModelAndView("dashboard");  
+			return new ModelAndView("dashboard/index");  
 		} catch (Exception e) {
 			System.out.println(e);
 			String msg = "Login required";
 			model.addAttribute("message", msg);
-			return new ModelAndView("login");
+			return new ModelAndView("login/login");
 		}
 	}
 	
-	@RequestMapping(value="/profile") // update profile GET
-	public ModelAndView profile(Model model, HttpSession session) throws Exception {
+	@RequestMapping(value = "/profile")
+	public ModelAndView profile(HttpSession session, Model model) {
 		try {
 			this.setModel(model, session);
-			return new ModelAndView("profile");  
+			return new ModelAndView("dashboard/profile");  
 		} catch (Exception e) {
 			System.out.println(e);
 			String msg = "Login required";
 			model.addAttribute("message", msg);
-			return new ModelAndView("login");
+			return new ModelAndView("login/login");
 		}
 	}
 	
-	@RequestMapping(value="/profile", method = RequestMethod.POST) // update profile POST
+	@RequestMapping(value="/update-profile") // update profile GET
+	public ModelAndView updateProfile(Model model, HttpSession session) throws Exception {
+		try {
+			this.setModel(model, session);
+			return new ModelAndView("dashboard/update-profile");  
+		} catch (Exception e) {
+			System.out.println(e);
+			String msg = "Login required";
+			model.addAttribute("message", msg);
+			return new ModelAndView("login/login");
+		}
+	}
+	
+	@RequestMapping(value="/update-profile", method = RequestMethod.POST) // update profile POST
 	public String up(
 			@ModelAttribute("profile") UserDetails userDetails,
 			@RequestParam("position") String position, @RequestParam("startDateEX") String startDateEX, 
@@ -99,7 +119,7 @@ public class DashboardController {
 		
 		String msg = "Profile has been updated";
 		model.addAttribute("message", msg);
-		return "dashboard";
+		return "dashboard/profile";
 	}
 	
 	private void setModel(Model model, HttpSession session) {
@@ -125,5 +145,11 @@ public class DashboardController {
 		
 		// educations
 		model.addAttribute("ed", eds.getEducationsByUserDetailsId(udID)); // Educations[]
+		
+		// notifications
+		List<BulkEmail> be = bes.getEmail(); 
+		model.addAttribute("nf1", be.get(be.size() - 1));
+		model.addAttribute("nf2", be.get(be.size() - 2));
+		model.addAttribute("nf3", be.get(be.size() - 3));
 	}
 }

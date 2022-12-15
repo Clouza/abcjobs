@@ -9,15 +9,15 @@ exBtn.addEventListener("click", () => {
 	const endDate = document.querySelector("#endDateEX").value;
 	const companyName = document.querySelector("#companyName").value;
 		
-		experiences.innerHTML = `
-<div class="d-flex align-items-center">
-    <i class='bx bx-map-pin fs-2'></i>
-    <div class="p-3">
-        <h4>${position} (${startDate.split("-")[0]} - ${endDate.split("-")[0]})</h4>
-        <small>${companyName}</small>
-    </div>
-</div>`;
-	});
+	experiences.innerHTML = `
+	<div class="d-flex align-items-center">
+	    <i class='bx bx-map-pin fs-2'></i>
+	    <div class="p-3">
+	        <h4>${position} (${startDate.split("-")[0]} - ${endDate.split("-")[0]})</h4>
+	        <small>${companyName}</small>
+	    </div>
+	</div>`;
+});
 
 edBtn.addEventListener("click", () => {
 	const intitutionName = document.querySelector("#intitutionName").value;
@@ -25,12 +25,12 @@ edBtn.addEventListener("click", () => {
 	const endDate = document.querySelector("#endDateED").value;
 	const educationName = document.querySelector("#educationName").value;
 		
-		educations.innerHTML = `
-<div class="d-flex align-items-center">
-    <i class='bx bx-map-pin fs-2'></i>
-    <div class="p-3">
-        <h4>${intitutionName} (${startDate.split("-")[0]} - ${endDate.split("-")[0]})</h4>
-        <small>${educationName}</small>
-    </div>
-</div>`;
+	educations.innerHTML = `
+	<div class="d-flex align-items-center">
+	    <i class='bx bx-map-pin fs-2'></i>
+	    <div class="p-3">
+	        <h4>${intitutionName} (${startDate.split("-")[0]} - ${endDate.split("-")[0]})</h4>
+	        <small>${educationName}</small>
+	    </div>
+	</div>`;
 });

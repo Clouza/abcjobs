@@ -1,5 +1,6 @@
 package com.abcjobs.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,7 +30,7 @@ public class AuthController {
 	
 	@RequestMapping(value="/registration")
 	public ModelAndView registration(HttpSession session) throws Exception {
-		return new ModelAndView("registration"); 
+		return new ModelAndView("registration/registration"); 
 	}
 	
 	@RequestMapping(value="/registration", method = RequestMethod.POST)
@@ -53,45 +54,69 @@ public class AuthController {
 			ud.register(userDetails);
 	
 			model.addAttribute("email", user.getEmail());
-			return "thankyou";
+			return "registration/thankyou";
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		model.addAttribute("errMsg", "Email has already taken");
-		return "registration";
+		return "registration/registration";
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public ModelAndView login(HttpSession session) throws Exception {
-		return new ModelAndView("login"); 
+		return new ModelAndView("login/login"); 
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST) // login process
-	public ModelAndView login(@ModelAttribute("login") Users user, HttpServletRequest req, Model model) throws Exception {
+	public ModelAndView login(
+			@ModelAttribute("login") Users user, Model model, 
+			HttpServletRequest req, HttpServletResponse res) {
+	
+		String rememberMe = req.getParameter("rememberMe");
 		HttpSession session = req.getSession();
 		Users isLogin = us.login(user);
 		
 		if(isLogin != null) {
+			if(rememberMe != null) { // remember me checked
+				Cookie eCookie = new Cookie("email", isLogin.getEmail());
+				eCookie.setMaxAge(10 * 60); // 10 minute
+				res.addCookie(eCookie);
+				
+				Cookie iCookie = new Cookie("userId", String.valueOf(isLogin.getUserId()));
+				iCookie.setMaxAge(10 * 60);
+				res.addCookie(iCookie);
+			}
+			
 			session.setAttribute("email", isLogin.getEmail());
 			session.setAttribute("userId", isLogin.getUserId());
+			session.setAttribute("roleId", isLogin.getRoleId());
 			session.setAttribute("isLogin", true);
 			return new ModelAndView("redirect:/dashboard");
 		}
 		
 		String msg = "Credentials is incorrect !";
 		model.addAttribute("message", msg);
-		return new ModelAndView("login");
+		return new ModelAndView("login/login");
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) throws Exception {
+	public String logout(HttpServletResponse res, HttpSession session) throws Exception {
 		session.invalidate();
-		return "login"; 
+
+		Cookie eCookie = new Cookie("email", "");
+		eCookie.setMaxAge(0); // 10 minute
+		res.addCookie(eCookie);
+		
+		Cookie iCookie = new Cookie("userId", "");
+		iCookie.setMaxAge(0);
+		res.addCookie(iCookie);
+		
+		return "login/login"; 
 	}
 
 	@RequestMapping(value="/forgot-password")
 	public ModelAndView forgotPassword(HttpServletResponse res) throws Exception {
-		return new ModelAndView("forgot-password");  
+		return new ModelAndView("login/forgot-password");  
 	}
 	
 	@RequestMapping(value="/forgot-password", method = RequestMethod.POST) // forgot password logic
@@ -102,23 +127,23 @@ public class AuthController {
 		if(checkEmail != null) {
 			session.setAttribute("isReset", true);
 			session.setAttribute("email", email);
-			return "reset-password";
+			return "login/reset-password";
 		}
 				
 		String msg = "Email not found";
 		model.addAttribute("message", msg);
-		return "forgot-password";
+		return "login/forgot-password";
 	}
 	
 	@RequestMapping(value="/reset")
 	public ModelAndView reset(Model model, HttpSession session) throws Exception {
 		if((Boolean) session.getAttribute("isReset")) {
-			return new ModelAndView("reset-password");  
+			return new ModelAndView("login/reset-password");  
 		}
 	
 		String msg = "Email required";
 		model.addAttribute("message", msg);
-		return new ModelAndView("forgot-password"); 
+		return new ModelAndView("login/forgot-password"); 
 	}
 	
 	@RequestMapping(value="/reset", method = RequestMethod.POST) // reset password
@@ -131,10 +156,10 @@ public class AuthController {
 			session.invalidate();
 		} catch (Exception e) {
 			System.out.println(e);
-			return "reset-password";
+			return "login/reset-password";
 		}
 		
-		return "login";
+		return "login/login";
 	}
 
 }

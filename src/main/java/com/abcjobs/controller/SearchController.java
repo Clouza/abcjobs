@@ -36,6 +36,7 @@ public class SearchController {
 		
 		
 		if(q != null && !q.equals("")) {
+			q = q.split(" ")[0];
 			List<UserDetails> selectedUser = ud.searchByKey(q);
 			model.addAttribute("selected", selectedUser);
 			
@@ -46,13 +47,13 @@ public class SearchController {
 		
 		
 		
-		return new ModelAndView("search");  
+		return new ModelAndView("search/search");  
 	}
 	
 	@RequestMapping(value="/result", method = RequestMethod.POST) // view someone profile
 	public ModelAndView searchProfile(@RequestParam("uId") String uId, Model model, HttpSession session) throws Exception {
 		this.setModel(model, session, uId);
-		return new ModelAndView("result");  
+		return new ModelAndView("search/result");  
 	}
 	
 	private void setModel(Model model, HttpSession session, String uId) {

@@ -16,8 +16,8 @@ public class ExperiencesService {
 	@Autowired
 	ExperiencesRepository repo;
 	
-	public List<Experiences> getExperiencesByUserDetailsId(String udID) {
-		return repo.getExperiencesByUserDetailsId(udID);
+	public List<Experiences> getExperiencesByUserDetailsId(String id) {
+		return repo.getExperiencesByUserDetailsId(id);
 	}
 	
 	public Experiences addExperiences(Experiences ex) {

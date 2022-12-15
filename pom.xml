@@ -16,10 +16,13 @@
 		<cglib.version>2.2.2</cglib.version>
 		
 		<hibernate.version>5.4.1.Final</hibernate.version>
+		<email.version>1.6.2</email.version>
+		<powermock.version>2.0.7</powermock.version>
+		<mockito.version>2.23.4</mockito.version>
 	</properties>
 	
 	<dependencies>
-		<!-- assignment 3 required dependencies -->
+		<!-- abcjobs required dependencies -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
@@ -89,6 +92,49 @@
 			<artifactId>jstl</artifactId>	
 			<version>1.2</version>
 		</dependency>
+
+		<!-- email required dependencies -->
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-context-support</artifactId>
+		  <version>${spring.version}</version>
+		</dependency>
+		 
+		<dependency>
+		  <groupId>com.sun.mail</groupId>
+		  <artifactId>javax.mail</artifactId>
+		  <version>${email.version}</version>
+		</dependency>
+		
+		<!-- Test cases dependencies -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>3.8.1</version>
+		    <scope>test</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-engine</artifactId>
+		    <version>5.8.1</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>${mockito.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-junit-jupiter</artifactId>
+		    <version>${mockito.version}</version>
+		    <scope>test</scope>
+		</dependency>
+
 
 		<!-- CGLib for @Configuration -->
 		<dependency>

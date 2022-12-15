@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +19,10 @@ public class UserDetails {
 	
 	@Column(name = "user_id")
 	private String userId;
+	
+	@OneToOne(optional=false)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
+	private Users user;
 	
 	@Column(name = "city_id")
 	private String cityId;
@@ -40,12 +46,13 @@ public class UserDetails {
 	private String website;
 	
 	public UserDetails() {}
-	public UserDetails(
-			String userId, String cityId,
-			String firstName, String lastName,
-			String title, String about,
-			String companyName, String website) {
+
+	public UserDetails(Long userDetailsId, String userId, Users user, String cityId, String firstName, String lastName,
+			String title, String about, String companyName, String website) {
+		this.userDetailsId = userDetailsId;
 		this.userId = userId;
+		this.user = user;
+		this.cityId = cityId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.title = title;
@@ -53,58 +60,83 @@ public class UserDetails {
 		this.companyName = companyName;
 		this.website = website;
 	}
-	
+
 	public Long getUserDetailsId() {
 		return userDetailsId;
 	}
+
 	public void setUserDetailsId(Long userDetailsId) {
 		this.userDetailsId = userDetailsId;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
 	public String getCityId() {
 		return cityId;
 	}
+
 	public void setCityId(String cityId) {
 		this.cityId = cityId;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getAbout() {
 		return about;
 	}
+
 	public void setAbout(String about) {
 		this.about = about;
 	}
+
 	public String getCompanyName() {
 		return companyName;
 	}
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
 	public String getWebsite() {
 		return website;
 	}
+
 	public void setWebsite(String website) {
 		this.website = website;
 	}

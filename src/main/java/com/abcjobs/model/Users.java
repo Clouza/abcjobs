@@ -32,9 +32,12 @@ public class Users {
 	private String createdAt;
 	
 	public Users() {}
-	public Users(String email, String password) {
+	public Users(String roleId, String email, String password, String emailVerifiedAt, String createdAt) {
+		this.roleId = roleId;
 		this.email = email;
 		this.password = password;
+		this.emailVerifiedAt = emailVerifiedAt;
+		this.createdAt = createdAt;
 	}
 
 	public Long getUserId() {

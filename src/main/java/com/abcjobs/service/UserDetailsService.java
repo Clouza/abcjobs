@@ -43,5 +43,13 @@ public class UserDetailsService {
 	public List<UserDetails> searchByKey(String key) {
 		return repo.searchByKey(key);
 	}
+	
+	public List<UserDetails> getAllUserDetails() {
+		return repo.findAll();
+	}
+	
+	public UserDetails getDetailsById(Long id) {
+		return repo.findById(id).get();
+	}
 
 }

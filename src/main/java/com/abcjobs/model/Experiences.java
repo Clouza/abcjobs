@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +20,10 @@ public class Experiences {
 	
 	@Column(name = "user_details_id")
 	private String userDetailsId;
+	
+	@OneToOne(optional=false)
+	@JoinColumn(name = "user_details_id", referencedColumnName = "user_details_id", insertable=false, updatable=false)
+	private UserDetails userDetails;
 	
 	@Column(name = "company_name")
 	private String companyName;
