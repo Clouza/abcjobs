@@ -6,7 +6,7 @@
      <div class="col-3">
        <div class="d-flex flex-column border rounded-3 pb-4">
          <a href="profile" class="text-decoration-none">
-           <div class="border p-0 rounded-3 border-5">
+           <div class="border p-0 rounded-top border-5" style="overflow: hidden;">
              <div class="fs-1 d-flex align-items-center justify-content-center bg-primary text-white" style="height: 25vh;">
               <span>${f}</span>
               <span>${l}</span>
@@ -40,6 +40,12 @@
 			  <input class="form-check-input" type="checkbox" value="" id="jobs">
 			  <label class="form-check-label" for="jobs">
 			    Show Jobs
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="jobs">
+			  <label class="form-check-label" for="jobs">
+			    Saved post
 			  </label>
 			</div>
         </div>

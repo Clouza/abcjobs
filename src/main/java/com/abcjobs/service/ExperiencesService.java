@@ -24,19 +24,26 @@ public class ExperiencesService {
 		return repo.save(ex);
 	}
 	
-	public Experiences updateExperiences(String udID, Experiences ex) {
-//		Long exId = ;
-//		Experiences experiences = repo.findById(exId).get();
-//		
-//		// update
-//		experiences.setUserDetailsId(udID);
-//		experiences.setCompanyName(ex.getCompanyName());
-//		experiences.setPosition(ex.getPosition());
-//		experiences.setStartDate(ex.getStartDate());
-//		experiences.setEndDate(ex.getEndDate());
-//		
-//		// save
-//		return repo.save(experiences);
-		return null;
+	public Experiences updateExperiences(Long exId, Experiences ex) {
+		Experiences experiences = repo.findById(exId).get();
+		
+		// update
+		experiences.setCompanyName(ex.getCompanyName());
+		experiences.setPosition(ex.getPosition());
+		experiences.setStartDate(ex.getStartDate());
+		experiences.setEndDate(ex.getEndDate());
+		
+		// save
+		return repo.save(experiences);
+	}
+	
+	public boolean deleteExperience(Long id) {
+		try {
+			repo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return false;
 	}
 }

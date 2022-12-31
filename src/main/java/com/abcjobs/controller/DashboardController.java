@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.abcjobs.model.BulkEmail;
@@ -92,8 +93,6 @@ public class DashboardController {
 		if(position.equals("") || startDateEX.equals("") || endDateEX.equals("") || companyNameEX.equals("")) {
 			System.out.println("Experiences Empty");
 		} else {
-			// exs.updateExperiences(String.valueOf(userDetailsId), experiences);
-			
 			experiences.setPosition(position);
 			experiences.setStartDate(startDateEX);
 			experiences.setEndDate(endDateEX);
@@ -120,6 +119,57 @@ public class DashboardController {
 		String msg = "Profile has been updated";
 		model.addAttribute("message", msg);
 		return "dashboard/profile";
+	}
+	
+	@RequestMapping(value="/update-ex", method = RequestMethod.POST) // update experiences
+	public @ResponseBody String upEX(Experiences ex, @RequestParam("id") Long id,
+			@RequestParam("p") String position, @RequestParam("c") String companyName,
+			@RequestParam("sde") String startDate, @RequestParam("ede") String endDate) {
+		
+		try {
+			ex.setPosition(position);
+			ex.setStartDate(startDate);
+			ex.setEndDate(endDate);
+			ex.setCompanyName(companyName);
+			
+			exs.updateExperiences(id, ex);
+			return "Saved";
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	@RequestMapping(value="/update-ed", method = RequestMethod.POST) // update education
+	public @ResponseBody String upED(Educations ed, @RequestParam("id") Long id,
+			@RequestParam("i") String intitutionName, @RequestParam("e") String educationName,
+			@RequestParam("sde") String startDate, @RequestParam("ede") String endDate) {
+		
+		try {
+			ed.setIntitutionName(intitutionName);
+			ed.setStartDate(startDate);
+			ed.setEndDate(endDate);
+			ed.setEducationName(educationName);
+			
+			eds.updateEducations(id, ed);
+			return "Saved";
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	@RequestMapping(value="/delete", method = RequestMethod.POST) // delete Experiences
+	public @ResponseBody String delete(@RequestParam("type") String type, @RequestParam("id") Long id) {
+		// experience
+		if(type.equals("ex")) {
+			exs.deleteExperience(id);
+		} else {
+			// education
+			eds.deleteEducation(id);
+		}
+		
+		return "Deleted";
 	}
 	
 	private void setModel(Model model, HttpSession session) {

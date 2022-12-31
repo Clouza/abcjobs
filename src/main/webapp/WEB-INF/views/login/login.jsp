@@ -31,11 +31,11 @@
     <form:form action="login" method="post">
       <div class="mb-3">
         <label for="emailAddress" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="emailAddress" name="email" required>
+        <input type="email" class="form-control" name="email" required>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+        <input type="password" class="form-control" name="password" required>
       </div>
       <div class="d-flex flex-column">
         <div class="d-flex">

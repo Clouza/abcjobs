@@ -1,20 +1,18 @@
 package com.abcjobs.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.abcjobs.config.WebConfig;
-import com.abcjobs.model.Users;
 import com.abcjobs.repository.BulkEmailRepository;
 import com.abcjobs.repository.UsersRepository;
 import com.abcjobs.service.BulkEmailService;
@@ -26,8 +24,17 @@ public class ServiceTest {
 	@InjectMocks
 	UsersService us;
 	
+	@InjectMocks
+	BulkEmailService bes;
+	
 	@Mock
-	UsersRepository repo;
+	UsersRepository repos;
+	
+	@Mock
+	BulkEmailRepository br;
+	
+	@Mock
+	JavaMailSender mailSender;
 	
 	@Test
 	public void deleteTest() {
@@ -36,8 +43,17 @@ public class ServiceTest {
 	}
 	
 	@Test
-	public void updatePasswordTest() {
-		String password = "newPasswordHEEREE";
-		assertTrue(us.updatePassword(password, 4L));
+	public void isUserExistTest() {
+		Long id = 1L;
+		assertNotNull(us.isUserExist(id));
+	}
+	
+	@Test
+	public void sendMail() {
+		String subject = "Important !";
+		String body = "not really...";
+		String email = "bdse0622-022@learning.educlaas.com";
+		
+		assertTrue(bes.sendEmail(subject, body, email));
 	}
 }

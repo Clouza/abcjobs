@@ -25,13 +25,13 @@
 		        <td>${user.getTitle() == null ? "-" : user.getTitle()}</td>
 		        <td>
 		          <a href="profile/${user.getUserId()}">Edit</a>
-		          <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+		          <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal${user.getUserId()}">Delete</a>
 		          <a href="" data-bs-toggle="modal" data-bs-target="#detailModal${user.getUserId()}">Detail</a>
 		        </td>
 		      </tr>
 		      
 		      <!-- delete confirmation -->
-				<div class="modal fade" id="deleteModal" style="z-index: 2000;">
+				<div class="modal fade" id="deleteModal${user.getUserId()}" style="z-index: 2000;">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -70,6 +70,8 @@
 				            <h4>City</h4>
 				            <c:forEach var="c" items="${cities}">
 		            			<p>
+		            				${user.getCityId().equals(c.getCityId().toString()) ? c.getCityName() : "" }
+		            				${user.getCityId().equals(c.getCityId().toString()) ? "-" : "" }
 		            				${user.getCityId().equals(c.getCityId().toString()) ? c.getCountry().getCountryName() : "" }
 	            			 	</p>
 				            </c:forEach>

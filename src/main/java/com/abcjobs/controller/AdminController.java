@@ -2,7 +2,6 @@ package com.abcjobs.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.abcjobs.model.BulkEmail;
@@ -23,7 +21,6 @@ import com.abcjobs.model.Educations;
 import com.abcjobs.model.Experiences;
 import com.abcjobs.model.UserDetails;
 import com.abcjobs.repository.CityRepository;
-import com.abcjobs.repository.EducationsRepository;
 import com.abcjobs.service.BulkEmailService;
 import com.abcjobs.service.EducationsService;
 import com.abcjobs.service.ExperiencesService;
@@ -81,10 +78,13 @@ public class AdminController {
 	public ModelAndView allUsers(Model model, HttpSession session) {
 		List<UserDetails> users = ud.getAllUserDetails();
 		String cd = null;
+		// System.out.println(users);
+		
 		for(City c: cr.findAll()) {
-			if(users.get(1).getCityId().equals(c.getCityId().toString())) {
-				cd = c.getCountry().getCountryName();
-			}
+//			if(users.get(1).getCityId().equals(c.getCityId().toString())) {
+//				cd = c.getCountry().getCountryName();
+//			}
+			System.out.println(c);
 		}
 		System.out.println("OK " + cd);
 		model.addAttribute("users", users);
@@ -96,6 +96,8 @@ public class AdminController {
 	public String deleteUserById(@PathVariable("id") Long id, Model model) {
 		boolean isDeleted = us.deleteUserById(id);
 		if(isDeleted) {
+			System.out.println("User with ID " + id + " deleted");
+		} else {
 			model.addAttribute("err", "Cannot delete this user");
 		}
 		

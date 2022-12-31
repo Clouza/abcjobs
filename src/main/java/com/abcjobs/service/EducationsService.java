@@ -22,4 +22,27 @@ public class EducationsService {
 	public List<Educations> getEducationsByUserDetailsId(String udID) {
 		return repo.getEducationsByUserDetailsId(udID);
 	}
+	
+	public boolean deleteEducation(Long id) {
+		try {
+			repo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return false;
+	}
+	
+	public Educations updateEducations(Long id, Educations ed) {
+		Educations educations = repo.findById(id).get();
+		
+		// update
+		educations.setIntitutionName(ed.getIntitutionName());
+		educations.setEducationName(ed.getEducationName());
+		educations.setStartDate(ed.getStartDate());
+		educations.setEndDate(ed.getEndDate());
+		
+		// save
+		return repo.save(educations);
+	}
 }

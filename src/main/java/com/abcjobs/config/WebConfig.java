@@ -37,6 +37,9 @@ public class WebConfig implements WebMvcConfigurer {
 		
 		registry.addResourceHandler("/video/**")
         	.addResourceLocations("/resources/video/");
+		
+		registry.addResourceHandler("/audio/**")
+    		.addResourceLocations("/resources/audio/");
 	}
 
 	
