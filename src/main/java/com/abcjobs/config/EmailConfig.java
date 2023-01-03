@@ -18,7 +18,7 @@ public class EmailConfig {
 		Properties props = new Properties();
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		
-		props.put("mail.smtp.host", "mail.google.com");
+		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "465");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
