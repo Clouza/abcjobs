@@ -18,7 +18,7 @@ public class EmailConfig {
 		Properties props = new Properties();
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		
-		props.put("mail.smtp.host", "mail.clouza.net");
+		props.put("mail.smtp.host", "mail.google.com");
 		props.put("mail.smtp.port", "465");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -27,8 +27,8 @@ public class EmailConfig {
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
 		mailSender.setJavaMailProperties(props);
-		mailSender.setUsername("abcjobs@clouza.net");
-		mailSender.setPassword("abcjobs!");
+		mailSender.setUsername("yourmail@gmail.com");
+		mailSender.setPassword("abcjobs");
 
 		return mailSender;
 	}
